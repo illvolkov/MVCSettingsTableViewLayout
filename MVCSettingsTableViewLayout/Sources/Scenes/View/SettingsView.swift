@@ -32,7 +32,6 @@ final class SettingsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func setupHierarchy() {
         addSubview(tableView)
     }
@@ -47,10 +46,6 @@ final class SettingsView: UIView {
     
     private func setupView() {
         backgroundColor = .white
-    }
-    
-    func setupNavigationController() {
-        
     }
 }
 

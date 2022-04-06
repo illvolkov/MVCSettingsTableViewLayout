@@ -14,6 +14,7 @@ final class SettingsTableViewCell: UITableViewCell {
     
     private lazy var settingIcon: UIImageView = {
         let icon = UIImageView()
+        //TODO: backgroundColor = .white
         return icon
     }()
     
@@ -22,7 +23,7 @@ final class SettingsTableViewCell: UITableViewCell {
        return label
     }()
     
-    private lazy var settingDetailedLabel: UILabel = {
+    private lazy var settingInformerLabel: UILabel = {
         let label = UILabel()
         return label
     }()
