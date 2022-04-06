@@ -39,14 +39,14 @@ final class ProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupHierarchy() {
+    private func setupHierarchy() {
         contentView.addSubview(profileImage)
         contentView.addSubview(profileNameLabel)
         contentView.addSubview(profileDetailedLabel)
         accessoryType = .disclosureIndicator
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         
         contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
         
@@ -61,5 +61,11 @@ final class ProfileTableViewCell: UITableViewCell {
         profileDetailedLabel.translatesAutoresizingMaskIntoConstraints = false
         profileDetailedLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
         profileDetailedLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 20).isActive = true
+    }
+    
+    func configure(with model: Settings) {
+        profileImage.image = UIImage(named: model.image)
+        profileNameLabel.text = model.name
+        profileDetailedLabel.text = model.detailedTitle
     }
 }
