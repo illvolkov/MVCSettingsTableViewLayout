@@ -7,16 +7,25 @@
 
 import UIKit
 
-final class SettingsView: UIView {
+final class SettingsView: UIView, UITableViewDelegate {
+    
+    //MARK: - Views
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
+        tableView.separatorInset.left = displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: Offsets.separatorLeftInsetForiPod,
+                                                                                  andiPhoneValue: Offsets.separatorLeftInsetForiPhone)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         
         return tableView
     }()
+    
+    //MARK: - Initial
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -24,14 +33,13 @@ final class SettingsView: UIView {
         setupHierarchy()
         setupLayout()
         setupView()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Strings.fatalErrorMessage)
     }
+    
+    //MARK: - Settings
     
     private func setupHierarchy() {
         addSubview(tableView)
@@ -39,24 +47,40 @@ final class SettingsView: UIView {
     
     private func setupLayout() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
-    
+
     private func setupView() {
         backgroundColor = .white
     }
+    
+    //MARK: - Model
     
     var models = [Section]()
     
     func configureView(with models: [Section]) {
         self.models = models
     }
+    
+    //MARK: - Functions
+    
+    /*
+     Это нужно чтобы настроить отображение линии разделения ячеек на iPod touch. На всех устройствах отступ отображается корректно
+     кроме этого.
+    */
+    private func displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: CGFloat, andiPhoneValue: CGFloat) -> CGFloat {
+        let device = UIDevice()
+        return device.name == Strings.iPodTouchName ? withiPodValue : andiPhoneValue
+    }
 }
 
+//MARK: - UITableViewDataSource methods
+
 extension SettingsView: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         models.count
     }
@@ -68,7 +92,9 @@ extension SettingsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section]
         let modelCell = models[indexPath.section].option[indexPath.row]
-        if model.sectionType == "Профиль" {
+        
+        if model.sectionType == Strings.profileSectionType {
+            
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.identifier,
                 for: indexPath) as? ProfileTableViewCell else {
@@ -76,7 +102,9 @@ extension SettingsView: UITableViewDataSource {
             }
             cell.configure(with: modelCell)
             return cell
+            
         } else {
+            
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingsTableViewCell.identifier,
                 for: indexPath) as? SettingsTableViewCell else {
@@ -86,13 +114,30 @@ extension SettingsView: UITableViewDataSource {
             return cell
         }
     }
-}
-
-extension SettingsView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let modelCell = models[indexPath.section].option[indexPath.row].name
         
-        modelCell == "Илья Волков" ? print("Нажата ячейка Профиль") : print("Нажата ячейка", modelCell)
+        modelCell == Strings.profileCellName ? print(Strings.cellProfilePressed) : print(Strings.cellPressed, modelCell)
+    }
+}
+
+//MARK: - Constants
+
+extension SettingsView {
+    enum Offsets {
+        static let separatorLeftInsetForiPod: CGFloat = 56
+        static let separatorLeftInsetForiPhone: CGFloat = 62
+    }
+    
+    enum Strings {
+        static let fatalErrorMessage: String = "init(coder:) has not been implemented"
+        static let iPodTouchName: String = "iPod touch (7th generation)"
+        static let profileSectionType: String = "Profile"
+        static let profileCellName: String = "Илья Волков"
+        static let cellProfilePressed: String = "Нажата ячейка Профиль"
+        static let cellPressed: String = "Нажата ячейка"
     }
 }
