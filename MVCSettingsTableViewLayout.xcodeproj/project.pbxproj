@@ -16,6 +16,8 @@
 		04B2D99327FB7297005146DA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2D99227FB7297005146DA /* SettingsView.swift */; };
 		04B2D99527FB9809005146DA /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2D99427FB9809005146DA /* ProfileTableViewCell.swift */; };
 		04B2D99727FB9B7B005146DA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2D99627FB9B7B005146DA /* SettingsTableViewCell.swift */; };
+		04B2D99B27FBA0F7005146DA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2D99A27FBA0F7005146DA /* Settings.swift */; };
+		04B2D99D27FBA31F005146DA /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2D99C27FBA31F005146DA /* SettingsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		04B2D99227FB7297005146DA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04B2D99427FB9809005146DA /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		04B2D99627FB9B7B005146DA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		04B2D99A27FBA0F7005146DA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		04B2D99C27FBA31F005146DA /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 		04B2D99027FB6E79005146DA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04B2D99A27FBA0F7005146DA /* Settings.swift */,
+				04B2D99C27FBA31F005146DA /* SettingsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,10 +209,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B2D99D27FBA31F005146DA /* SettingsModel.swift in Sources */,
 				04B2D97C27FB6C37005146DA /* ViewController.swift in Sources */,
 				04B2D99327FB7297005146DA /* SettingsView.swift in Sources */,
 				04B2D99727FB9B7B005146DA /* SettingsTableViewCell.swift in Sources */,
 				04B2D97827FB6C37005146DA /* AppDelegate.swift in Sources */,
+				04B2D99B27FBA0F7005146DA /* Settings.swift in Sources */,
 				04B2D99527FB9809005146DA /* ProfileTableViewCell.swift in Sources */,
 				04B2D97A27FB6C37005146DA /* SceneDelegate.swift in Sources */,
 			);
