@@ -16,7 +16,8 @@ final class SettingsView: UIView, UITableViewDelegate {
         
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
-        tableView.separatorInset.left = displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: 56, andiPhoneValue: 62)
+        tableView.separatorInset.left = displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: Offsets.separatorLeftInsetForiPod,
+                                                                                  andiPhoneValue: Offsets.separatorLeftInsetForiPhone)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -35,7 +36,7 @@ final class SettingsView: UIView, UITableViewDelegate {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Strings.fatalErrorMessage)
     }
     
     //MARK: - Settings
@@ -72,7 +73,7 @@ final class SettingsView: UIView, UITableViewDelegate {
     */
     private func displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: CGFloat, andiPhoneValue: CGFloat) -> CGFloat {
         let device = UIDevice()
-        return device.name == "iPod touch (7th generation)" ? withiPodValue : andiPhoneValue
+        return device.name == Strings.iPodTouchName ? withiPodValue : andiPhoneValue
     }
 }
 
@@ -92,7 +93,7 @@ extension SettingsView: UITableViewDataSource {
         let model = models[indexPath.section]
         let modelCell = models[indexPath.section].option[indexPath.row]
         
-        if model.sectionType == "Profile" {
+        if model.sectionType == Strings.profileSectionType {
             
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.identifier,
@@ -119,6 +120,24 @@ extension SettingsView: UITableViewDataSource {
         
         let modelCell = models[indexPath.section].option[indexPath.row].name
         
-        modelCell == "Илья Волков" ? print("Нажата ячейка Профиль") : print("Нажата ячейка", modelCell)
+        modelCell == Strings.profileCellName ? print(Strings.cellProfilePressed) : print(Strings.cellPressed, modelCell)
+    }
+}
+
+//MARK: - Constants
+
+extension SettingsView {
+    enum Offsets {
+        static let separatorLeftInsetForiPod: CGFloat = 56
+        static let separatorLeftInsetForiPhone: CGFloat = 62
+    }
+    
+    enum Strings {
+        static let fatalErrorMessage: String = "init(coder:) has not been implemented"
+        static let iPodTouchName: String = "iPod touch (7th generation)"
+        static let profileSectionType: String = "Profile"
+        static let profileCellName: String = "Илья Волков"
+        static let cellProfilePressed: String = "Нажата ячейка Профиль"
+        static let cellPressed: String = "Нажата ячейка"
     }
 }

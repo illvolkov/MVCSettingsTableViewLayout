@@ -101,9 +101,9 @@
 		04B2D98E27FB6E5B005146DA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				04B2D99027FB6E79005146DA /* Model */,
 				04B2D98F27FB6E75005146DA /* View */,
 				04B2D99127FB6E7F005146DA /* Controller */,
-				04B2D99027FB6E79005146DA /* Model */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";

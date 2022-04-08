@@ -49,10 +49,10 @@ class SettingsController: UIViewController {
 
         let searchView = UISearchController()
         searchView.searchBar.tintColor = .systemBlue
-        searchView.searchBar.placeholder = "Поиск"
-        searchView.searchBar.setValue("Отменить", forKey: "cancelButtonText")
+        searchView.searchBar.placeholder = Strings.searchBarPlaceholder
+        searchView.searchBar.setValue(Strings.searchBarButtonName, forKey: Strings.searchBarButtonKey)
 
-        navigationItem.title = "Настройки"
+        navigationItem.title = Strings.navigationItemTitle
         navigationItem.searchController = searchView
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -70,6 +70,17 @@ class SettingsController: UIViewController {
         guard let models = model?.createModel() else { return }
         settingsView?.configureView(with: models)
     }
+}
 
+//MARK: - Constants
+
+extension SettingsController {
+    
+    enum Strings {
+        static let searchBarPlaceholder: String = "Поиск"
+        static let searchBarButtonName: String = "Отменить"
+        static let searchBarButtonKey: String = "cancelButtonText"
+        static let navigationItemTitle: String = "Настройки"
+    }
 }
 

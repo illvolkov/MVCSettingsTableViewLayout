@@ -12,14 +12,15 @@ final class ProfileTableViewCell: UITableViewCell {
     
     //MARK: - Identifier
     
-    static let identifier = "ProfileTableViewCell"
+    static let identifier = Strings.cellIdentifier
     
     //MARK: - Views
     
     private lazy var profileImage: UIImageView = {
         let image = UIImageView()
         
-        image.layer.cornerRadius = displayAdaptationToiPodTouch(withiPodValue: 0.08, andiPhoneValue: 0.1)
+        image.layer.cornerRadius = displayAdaptationToiPodTouch(withiPodValue: Sizes.profileImageCornerRadiusiPod,
+                                                                andiPhoneValue: Sizes.profileImageCornerRadiusiPhone)
         image.layer.masksToBounds = true
         
         return image
@@ -28,7 +29,8 @@ final class ProfileTableViewCell: UITableViewCell {
     private lazy var profileNameLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .systemFont(ofSize: displayAdaptationToiPodTouch(withiPodValue: 0.06, andiPhoneValue: 0.07))
+        label.font = .systemFont(ofSize: displayAdaptationToiPodTouch(withiPodValue: Sizes.profileNameLabelFontiPodSize,
+                                                                      andiPhoneValue: Sizes.profileNameLabelFontiPhoneSize))
         
         return label
     }()
@@ -36,7 +38,8 @@ final class ProfileTableViewCell: UITableViewCell {
     private lazy var profileDetailedLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .systemFont(ofSize: displayAdaptationToiPodTouch(withiPodValue: 0.03, andiPhoneValue: 0.038))
+        label.font = .systemFont(ofSize: displayAdaptationToiPodTouch(withiPodValue: Sizes.profileDetailedLabelFontiPodSize,
+                                                                      andiPhoneValue: Sizes.profileDetailedLabelFontiPhoneSize))
                                  
         return label
     }()
@@ -46,7 +49,7 @@ final class ProfileTableViewCell: UITableViewCell {
     private func displayAdaptationToiPodTouch(withiPodValue: CGFloat, andiPhoneValue: CGFloat) -> CGFloat {
         let device = UIDevice()
         
-        return device.name == "iPod touch (7th generation)" ?
+        return device.name == Strings.iPodTouchName ?
         contentView.frame.width * withiPodValue : contentView.frame.width * andiPhoneValue
     }
     
@@ -60,7 +63,7 @@ final class ProfileTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Strings.fatalErrorMessage)
     }
     
     //MARK: - Settings
@@ -76,21 +79,28 @@ final class ProfileTableViewCell: UITableViewCell {
     private func setupLayout() {
         
         //Высота ячейки профиля
-        contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.28).isActive = true
+        contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor,
+                                            multiplier: Sizes.contentViewHeightMultiplierSize).isActive = true
         
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         profileImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        profileImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 17).isActive = true
-        profileImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
+        profileImage.leftAnchor.constraint(equalTo: contentView.leftAnchor,
+                                           constant: Offsets.profileImageLeftOffset).isActive = true
+        profileImage.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                            multiplier: Sizes.profileImageWidthMultiplierSize).isActive = true
         profileImage.heightAnchor.constraint(equalTo: profileImage.widthAnchor).isActive = true
         
         profileNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-        profileNameLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 15).isActive = true
+        profileNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                              constant: Offsets.profileNameLabelTopOffset).isActive = true
+        profileNameLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor,
+                                               constant: Offsets.leftOffset15).isActive = true
         
         profileDetailedLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileDetailedLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 4).isActive = true
-        profileDetailedLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 15).isActive = true
+        profileDetailedLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor,
+                                                  constant: Offsets.profileDetailedLabelTopOffset).isActive = true
+        profileDetailedLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor,
+                                                   constant: Offsets.leftOffset15).isActive = true
     }
     
     //MARK: - Configure
@@ -99,5 +109,33 @@ final class ProfileTableViewCell: UITableViewCell {
         profileImage.image = UIImage(named: model.image)
         profileNameLabel.text = model.name
         profileDetailedLabel.text = model.detailedTitle
+    }
+}
+
+//MARK: - Constants
+
+extension ProfileTableViewCell {
+    enum Offsets {
+        static let profileImageLeftOffset: CGFloat = 17
+        static let profileNameLabelTopOffset: CGFloat = 20
+        static let profileDetailedLabelTopOffset: CGFloat = 4
+        static let leftOffset15: CGFloat = 15
+    }
+    
+    enum Sizes {
+        static let profileImageCornerRadiusiPod: CGFloat = 0.08
+        static let profileImageCornerRadiusiPhone: CGFloat = 0.1
+        static let profileImageWidthMultiplierSize: CGFloat = 0.2
+        static let profileNameLabelFontiPodSize: CGFloat = 0.06
+        static let profileNameLabelFontiPhoneSize: CGFloat = 0.07
+        static let profileDetailedLabelFontiPodSize: CGFloat = 0.03
+        static let profileDetailedLabelFontiPhoneSize: CGFloat = 0.038
+        static let contentViewHeightMultiplierSize: CGFloat = 0.28
+    }
+    
+    enum Strings {
+        static let cellIdentifier: String = "ProfileTableViewCell"
+        static let iPodTouchName: String = "iPod touch (7th generation)"
+        static let fatalErrorMessage: String = "init(coder:) has not been implemented"
     }
 }
