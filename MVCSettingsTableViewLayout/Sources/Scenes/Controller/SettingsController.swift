@@ -9,13 +9,19 @@ import UIKit
 
 class SettingsController: UIViewController {
     
+    //MARK: - References
+    
+    //Преобразование типа родительской view в SettingsView
     private var settingsView: SettingsView? {
         guard isViewLoaded else { return nil }
         return view as? SettingsView
     }
     
     var model: SettingsModel?
+    
+    //MARK: - Lifecycle
 
+    //Сборка модуля
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +43,8 @@ class SettingsController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
+    //MARK: - Settings
+    
     private func setupNavigationController() {
 
         let searchView = UISearchController()
@@ -54,7 +62,10 @@ class SettingsController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
+    
+    //MARK: - Configure
 
+    //Подготовка данных к их отображению
     private func configureView() {
         guard let models = model?.createModel() else { return }
         settingsView?.configureView(with: models)

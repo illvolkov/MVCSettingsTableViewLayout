@@ -9,6 +9,8 @@ import UIKit
 
 final class SettingsView: UIView, UITableViewDelegate {
     
+    //MARK: - Views
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
@@ -22,6 +24,8 @@ final class SettingsView: UIView, UITableViewDelegate {
         return tableView
     }()
     
+    //MARK: - Initial
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
@@ -33,6 +37,8 @@ final class SettingsView: UIView, UITableViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Settings
     
     private func setupHierarchy() {
         addSubview(tableView)
@@ -50,17 +56,27 @@ final class SettingsView: UIView, UITableViewDelegate {
         backgroundColor = .white
     }
     
+    //MARK: - Model
+    
     var models = [Section]()
     
     func configureView(with models: [Section]) {
         self.models = models
     }
     
+    //MARK: - Functions
+    
+    /*
+     Это нужно чтобы настроить отображение линии разделения ячеек на iPod touch. На всех устройствах отступ отображается корректно
+     кроме этого.
+    */
     private func displayAdaptationSeparatorLeftInsetToIpod(withiPodValue: CGFloat, andiPhoneValue: CGFloat) -> CGFloat {
         let device = UIDevice()
         return device.name == "iPod touch (7th generation)" ? withiPodValue : andiPhoneValue
     }
 }
+
+//MARK: - UITableViewDataSource methods
 
 extension SettingsView: UITableViewDataSource {
     
@@ -77,6 +93,7 @@ extension SettingsView: UITableViewDataSource {
         let modelCell = models[indexPath.section].option[indexPath.row]
         
         if model.sectionType == "Profile" {
+            
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileTableViewCell.identifier,
                 for: indexPath) as? ProfileTableViewCell else {
@@ -84,7 +101,9 @@ extension SettingsView: UITableViewDataSource {
             }
             cell.configure(with: modelCell)
             return cell
+            
         } else {
+            
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingsTableViewCell.identifier,
                 for: indexPath) as? SettingsTableViewCell else {

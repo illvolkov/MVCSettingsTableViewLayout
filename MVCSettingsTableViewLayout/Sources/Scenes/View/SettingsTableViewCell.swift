@@ -10,12 +10,16 @@ import UIKit
 
 final class SettingsTableViewCell: UITableViewCell {
     
+    //MARK: - Identifier
+    
     static let identifier = "SettingsTableViewCell"
     
     private lazy var settingIcon: UIImageView = {
         let icon = UIImageView()
         return icon
     }()
+    
+    //MARK: - Views
     
     private lazy var settingNameLabel: UILabel = {
         let label = UILabel()
@@ -53,12 +57,16 @@ final class SettingsTableViewCell: UITableViewCell {
         return settingSwitch
     }()
     
+    //MARK: - Functions
+    
     private func displayAdaptationToiPodTouch(withValueiPod: CGFloat, andValueiPhone: CGFloat) -> CGFloat {
         let device = UIDevice()
         
         return device.name == "iPod touch (7th generation)" ?
         contentView.frame.width * withValueiPod : contentView.frame.width * andValueiPhone
     }
+    
+    //MARK: - Settings
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -71,6 +79,7 @@ final class SettingsTableViewCell: UITableViewCell {
     }
     
     private func setupDisplay(with model: Settings) {
+        
         contentView.addSubview(settingIcon)
         contentView.addSubview(settingNameLabel)
         accessoryType = .disclosureIndicator
@@ -85,6 +94,7 @@ final class SettingsTableViewCell: UITableViewCell {
         settingNameLabel.translatesAutoresizingMaskIntoConstraints = false
         settingNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         settingNameLabel.leftAnchor.constraint(equalTo: settingIcon.rightAnchor, constant: 15).isActive = true
+        
     }
     
     private func setupDisplayForSpecificCells(with model: Settings) {
@@ -115,6 +125,8 @@ final class SettingsTableViewCell: UITableViewCell {
             settingIndicatorBadge.heightAnchor.constraint(equalTo: settingIndicatorBadge.widthAnchor).isActive = true
         }
     }
+    
+    //MARK: - Configure
     
     func configure(with model: Settings) {
         settingIcon.image = UIImage(named: model.image)

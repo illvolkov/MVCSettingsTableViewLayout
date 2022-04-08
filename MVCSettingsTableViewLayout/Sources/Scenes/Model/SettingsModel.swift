@@ -10,6 +10,7 @@ import Foundation
 final class SettingsModel {
     func createModel() -> [Section] {
         return [
+            
             Section(sectionType: "Profile", option: [
                 
                 Settings(image: "profile.photo",

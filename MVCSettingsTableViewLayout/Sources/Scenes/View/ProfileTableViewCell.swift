@@ -10,7 +10,11 @@ import UIKit
 
 final class ProfileTableViewCell: UITableViewCell {
     
+    //MARK: - Identifier
+    
     static let identifier = "ProfileTableViewCell"
+    
+    //MARK: - Views
     
     private lazy var profileImage: UIImageView = {
         let image = UIImageView()
@@ -37,12 +41,16 @@ final class ProfileTableViewCell: UITableViewCell {
         return label
     }()
     
+    //MARK: - Functions
+
     private func displayAdaptationToiPodTouch(withiPodValue: CGFloat, andiPhoneValue: CGFloat) -> CGFloat {
         let device = UIDevice()
         
         return device.name == "iPod touch (7th generation)" ?
         contentView.frame.width * withiPodValue : contentView.frame.width * andiPhoneValue
     }
+    
+    //MARK: - Initial
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,7 +63,10 @@ final class ProfileTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Settings
+    
     private func setupHierarchy() {
+        
         contentView.addSubview(profileImage)
         contentView.addSubview(profileNameLabel)
         contentView.addSubview(profileDetailedLabel)
@@ -64,6 +75,7 @@ final class ProfileTableViewCell: UITableViewCell {
     
     private func setupLayout() {
         
+        //Высота ячейки профиля
         contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.28).isActive = true
         
         profileImage.translatesAutoresizingMaskIntoConstraints = false
@@ -79,8 +91,9 @@ final class ProfileTableViewCell: UITableViewCell {
         profileDetailedLabel.translatesAutoresizingMaskIntoConstraints = false
         profileDetailedLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 4).isActive = true
         profileDetailedLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 15).isActive = true
-
     }
+    
+    //MARK: - Configure
     
     func configure(with model: Settings) {
         profileImage.image = UIImage(named: model.image)
