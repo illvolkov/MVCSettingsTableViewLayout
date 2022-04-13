@@ -17,7 +17,7 @@ final class SettingsView: UIView, UITableViewDelegate {
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         tableView.separatorInset.left = SettingsView.displayAdaptationToiPod(withiPodValue: Offsets.separatorLeftInsetForiPod,
-                                                                                  andiPhoneValue: Offsets.separatorLeftInsetForiPhone)
+                                                                             andiPhoneValue: Offsets.separatorLeftInsetForiPhone)
         
         tableView.dataSource = self
         tableView.delegate = self

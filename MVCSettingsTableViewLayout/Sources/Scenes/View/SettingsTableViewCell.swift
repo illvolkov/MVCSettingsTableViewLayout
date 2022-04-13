@@ -64,9 +64,7 @@ final class SettingsTableViewCell: UITableViewCell {
         let settingSwitch = UISwitch()
         return settingSwitch
     }()
-    
-    //MARK: - Functions
-    
+        
     //MARK: - Settings
     
     override func prepareForReuse() {
